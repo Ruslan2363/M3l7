@@ -36,7 +36,9 @@ public class Main {
         myName.stream().filter(n-> n.startsWith("J")).forEach((n) -> System.out.println(n));
 // 4 вираз
 
-        Stream.of(1,2,4,5).filter(k -> k % 2==0).map(k -> k +k).forEach(System.out::println);
-        Stream.of(1,2,4,5).filter(d -> d % 2!=0).map(d -> d +d).forEach(System.out::println);
+        Optional<Integer>red1 = Stream.of(1,2,4,5).filter(k -> k % 2==0).reduce((k1, k2) -> k1 + k2);
+        red1.ifPresent(System.out::println);
+        Optional<Integer>red2 = Stream.of(1,2,4,5).filter(d -> d % 2!=0).reduce((d1, d2) -> d1 + d2);
+        red2.ifPresent(System.out::println);
     }
 }
