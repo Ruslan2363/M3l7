@@ -1,4 +1,5 @@
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 import java.util.stream.*;
 import java.util.*;
@@ -7,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+
+
+
+
     // ДЛя третього виразу (Створив тут лістом набір прізвищ)
     static List<String> names = new ArrayList<>();
 
@@ -20,13 +25,29 @@ public class Main {
     }
 
     // Закінчив його створення та добавив прізвища у список
+    static List<Integer> number = new ArrayList<>();
 
-
+    public static List<Integer> number() {
+        number.add(1);
+        number.add(4);
+        number.add(7);
+        number.add(6);
+        number.add(9);
+        return number;
+    }
 
     public static void main(String[] args) {
-        // 1 вираз
-        Optional<Integer>reduced= Stream.of(1, 2, 3, 6, 5, 4, 3, 5, 9, 88).map(x -> x * x).reduce((x1, x2) -> x1 + x2);
-        reduced.ifPresent(System.out::println);
+        int size = 10;
+        int min = 55;
+        int max = 123;
+
+        List<Integer> randList = new Random().ints(size, min, max)
+                .boxed().collect(Collectors.toList());
+        System.out.println(randList);
+        // 1 вираз;
+        randList.stream().map(x -> x * x).reduce((x1, x2) -> x1 + x2).ifPresent(System.out::println);
+
+
         // 2 вираз
         Stream.of(1,2,3,6,5).filter(i -> i % 2==0).forEach(System.out::println);
 
@@ -36,9 +57,13 @@ public class Main {
         myName.stream().filter(n-> n.startsWith("J")).forEach((n) -> System.out.println(n));
 // 4 вираз
 
-        Optional<Integer>red1 = Stream.of(1,2,4,5).filter(k -> k % 2==0).reduce((k1, k2) -> k1 + k2);
-        red1.ifPresent(System.out::println);
-        Optional<Integer>red2 = Stream.of(1,2,4,5).filter(d -> d % 2!=0).reduce((d1, d2) -> d1 + d2);
-        red2.ifPresent(System.out::println);
+        List<Integer>red1=number();
+        System.out.println("Сума парних:");
+        red1.stream().filter(k -> k % 2==0).reduce((k1, k2) -> k1 + k2).ifPresent(System.out::println);
+        System.out.println("Сума непарних:");
+        red1.stream().filter(k -> k % 2!=0).reduce((k1, k2) -> k1 + k2).ifPresent(System.out::println);
+
+
+
     }
 }
